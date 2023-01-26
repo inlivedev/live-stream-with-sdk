@@ -1,0 +1,27 @@
+{
+  "name": "live-stream-with-sdk",
+  "version": "1.0.0",
+  "description": "a simple live streaming app using inLive API and inlive-sdk",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inlivedev/live-stream-with-sdk.git"
+  },
+  "keywords": [
+    "livestream",
+    "example"
+  ],
+  "author": "Yohan Totting <tyohan@inlive.app>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/inlivedev/live-stream-with-sdk/issues"
+  },
+  "homepage": "https://github.com/inlivedev/live-stream-with-sdk#readme",
+  "dependencies": {
+    "@inlivedev/inlive-js-sdk": "^0.3.0",
+    "http-server": "^14.1.1"
+  }
+}
