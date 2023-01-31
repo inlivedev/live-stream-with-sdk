@@ -87,12 +87,11 @@ async function attachMedia(){
     audio: true,
   };
 
-  const localStream = await InliveStream.media.getUserMedia(constraints);
+  const media = await InliveStream.media.getUserMedia(constraints);
   const videoEl = document.querySelector('video')
-  
-  InliveStream.media.attachMediaElement(videoEl,localStream)
+  media.attachTo(videoEl)
 
-  return localStream
+  return media.stream
 }
 
 // init stream
