@@ -137,16 +137,8 @@ async function startStream() {
 }
 
 // get stream
-async function getStream(slug, options) {
-    let element = document.getElementById('getStreamLink');
-    const currentURL = window.location.origin;
-    let urlLive = new URL(`${currentURL}/live.html?id=${stream.id}`);
-    element.value = urlLive;
-    element.select();
-    element.setSelectionRange(0, 99999);
-    navigator.clipboard.writeText(element.value);
-    document.getElementById('streamLink').innerHTML =
-      '<p>Link copied to clipboard!</p>';
+async function getStream(streamId) {
+    return await InliveStream.getStream(app,streamId)
 }
 
 // end stream
@@ -162,10 +154,4 @@ async function endStream(slug) {
   ).style.display = 'none'
 }
 
-
-document.addEventListener('DOMContentLoaded',()=>{
-  document.querySelector('#btnCreate').addEventListener('click',(e)=>createStream())
-  document.querySelector('#btnStart').addEventListener('click',(e)=>startStream())
-  document.querySelector('#btnEnd').addEventListener('click',(e)=>endStream())
-  document.querySelector('#btnGet').addEventListener('click',(e)=>getStream())
-})
+export {createStream, getStream, endStream, startStream,Stream}

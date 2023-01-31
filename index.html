@@ -9,7 +9,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Import the javascript file -->
-    <script src="/script.mjs" type="module"></script>
+    <script defer type="module">
+      import {createStream,startStream,endStream,getStream} from './script.mjs'
+      window.addEventListener('DOMContentLoaded',()=>{
+      document.querySelector('#btnCreate').addEventListener('click',(e)=>createStream())
+      document.querySelector('#btnStart').addEventListener('click',(e)=>startStream())
+      document.querySelector('#btnEnd').addEventListener('click',(e)=>endStream())
+      document.querySelector('#btnGet').addEventListener('click',(e)=>getStream())
+    })
+    </script>
     <title>Create Live Stream</title>
   </head>
   <body>
