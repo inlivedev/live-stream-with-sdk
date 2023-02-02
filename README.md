@@ -19,20 +19,20 @@ Open each file and check out the comments (in gray).
 # How To Use
 
 ## Steps for preparing your API Key
-1. Open [studio.inlive.app](https://studio.inlive.app/login) on your browser and login with your google account.
+1. Open [studio.inlive.app](https://studio.inlive.app/login) on your browser and login with your Google  or Github account.
 2. Go to the integration page.
 3. Create an application key. Make sure you copy the key after you create it because you won’t be able to see it again later.
 
 
 ## Start the web app
-Because this app is not using any build tool, so it's not coming with any built-in HTTP server. To be able access the web app locally, you will need to install a HTTP server. For example here we're using [http-server](https://www.npmjs.com/package/http-server). Feel free to use other HTTP server that you prefer. To install http-server and run it you can follow these steps:
+Because this app is not using any build tool, it's not coming with any built-in HTTP server. To be able to access the web app locally, you will need to install an HTTP server. For example, here we're using [http-server](https://www.npmjs.com/package/http-server). Feel free to use another HTTP server that you prefer. To install http-server and run it you can follow these steps:
 1. Make sure you have NodeJS and NPM installed.
 2. Switch to this repo directory
 3. Install the http-server module globally by run `npm i -g http-server` in your terminal
-4. Run the http-server by run `http-server` 
-5. Then you should be able access this web app using your browser at http://localhost:8080
+4. Run the http-server by running `http-server`` 
+5. Then you should be able to access this web app using your browser at http://localhost:8080
 
-## Steps for streamer (index.html)
+## Steps for the streamer (index.html)
 ### A. Steps input API Key to script.mjs
 From preparing API Key above step, find these lines in `script.mjs` and input your API key.
    
@@ -47,7 +47,7 @@ From preparing API Key above step, find these lines in `script.mjs` and input yo
    
 
 ### B. Steps creating a new live streaming
-1. You need to create a new stream. Type your new stream name on the input field. 
+1. You need to create a new stream. Type your new stream name in the input field. 
 2. Hit the `Create Stream` button.
    It triggers `createStream` function which will send the input field value (number 1) to the create stream API and send a return stream id & slug that we will use for streaming.
    If you haven't type any name on the input field, it will randomize its own name.
@@ -61,7 +61,7 @@ From preparing API Key above step, find these lines in `script.mjs` and input yo
 1. Hit the `Get Stream` button after text `Streaming started!` appears.
    It triggers `getStream` function and return a link to view your own video live streaming (automaticly copied).
 2. Paste the link on your browser to view (will be played by shaka player).
-**Notes**: For those who would like to use the manifest URI, it will show on the below text.
+**Notes**: For those who would like to use the manifest URL, it will show on the below text. You can test the manifest URL with any HLS or Dash compatible player.
 
 ## Steps to end streaming (index.html)
 1. Hit `End Stream` button.

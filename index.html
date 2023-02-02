@@ -9,7 +9,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Import the javascript file -->
-    <script src="/script.mjs" type="module"></script>
+    <script defer type="module">
+      import {createStream,startStream,endStream,getStream} from './script.mjs'
+      window.addEventListener('DOMContentLoaded',()=>{
+      document.querySelector('#btnCreate').addEventListener('click',(e)=>createStream())
+      document.querySelector('#btnStart').addEventListener('click',(e)=>startStream())
+      document.querySelector('#btnEnd').addEventListener('click',(e)=>endStream())
+      document.querySelector('#btnGet').addEventListener('click',(e)=>getStream())
+    })
+    </script>
     <title>Create Live Stream</title>
   </head>
   <body>
@@ -105,20 +113,18 @@
 
       <!-- to start streaming -->
       <button
-        id="btnStart"
         type="button"
         aria-label="start-stream"
-        id="startStream"
+        id="btnStart"
         class="block cursor-pointer border-2 border-blue-600 rounded-lg text-blue-600 hover:bg-blue-600 hover:text-white px-4 py-2"
       >
         Start Stream
       </button>
       <!-- to end streaming from the endpoint -->
       <button
-        id="btnEnd"
         type="button"
         aria-label="end-stream"
-        id="endStream"
+        id="btnEnd"
         class="hidden cursor-pointer border-2 border-blue-600 rounded-lg text-blue-600 hover:bg-blue-600 hover:text-white px-4 py-2"
       >
         End Stream

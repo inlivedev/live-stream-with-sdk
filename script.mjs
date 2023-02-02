@@ -43,12 +43,21 @@ async function createStream() {
     }
 
     // request api
+      const btnCreate = document.querySelector('#btnCreate')
+      btnCreate.disabled = true
+      const status = document.getElementById('streamStatus')
+      status.innerHTML =
+      `<b>Creating live stream... please wait!</b>`;
+
       stream = await InliveStream.createStream(app,{name:streamName})
+
+      btnCreate.disabled = false
+
       document.getElementById('createContainer').style.display = 'none';
       document.getElementById('mainContainer').style.display = 'flex';
       document.getElementById(
         'yourStream'
-      ).innerHTML = `Stream name : <b>${stream.name}</b>`;
+      ).innerHTML = `Stream name : <b>${streamName}</b>`;
 
       const localStream = await attachMedia()
       await prepareStream()
@@ -69,16 +78,12 @@ async function createStream() {
 // preparing stream
 async function prepareStream() {
   try {
-    await stream.prepare()
-
     //styling
-    document.getElementById('startStream').style.display = 'none';
     document.getElementById('streamStatus').innerHTML =
       '<b>Preparing stream ...</b>';
+    
+      await stream.prepare()
 
-    if (resp.code !== 200) {
-      throw new Error('Failed to prepare stream session');
-    }
   } catch (err) {
     console.error(err);
   }
@@ -94,12 +99,11 @@ async function attachMedia(){
     audio: true,
   };
 
-  const localStream = await InliveStream.media.getUserMedia(constraints);
+  const media = await InliveStream.media.getUserMedia(constraints);
   const videoEl = document.querySelector('video')
-  
-  InliveStream.media.attachMediaElement(videoEl,localStream)
+  media.attachTo(videoEl)
 
-  return localStream
+  return media.stream
 }
 
 // init stream
@@ -121,11 +125,22 @@ async function initStream(localStream) {
 // start stream button
 async function startStream() {
   try {
+    const status = document.getElementById('streamStatus')
+    status.innerHTML =
+    `<b>Going live... please wait!</b>`;
+    const btnStart=document.getElementById('btnStart')
+    btnStart.disabled = true
     await stream.live()
 
     //styling
-    document.getElementById('streamStatus').innerHTML =
-      '<b>Streaming is ready!</b>';
+    
+    btnStart.style.display = 'none';
+    document.getElementById('btnEnd').style.display = 'block';
+    status.innerHTML =
+      `<b>Streaming is live! <a href="/live.html?id=${stream.id}" target="_blank">Click here to watch</a> </b>`;
+    document.getElementById(
+        'manifestUriLink'
+      ).innerHTML = `<p>Dash manifest uri : ${stream.manifests.dash}</p> <p>HLS manifest uri : ${stream.manifests.hls}</p>`;
   } catch (error) {
     console.error(error);
     throw error;
@@ -133,31 +148,21 @@ async function startStream() {
 }
 
 // get stream
-async function getStream(slug, options) {
-    let element = document.getElementById('getStreamLink');
-    const currentURL = window.location.origin;
-    let urlLive = new URL(`${currentURL}/live.html?id=${stream.id}`);
-    element.value = urlLive;
-    element.select();
-    element.setSelectionRange(0, 99999);
-    navigator.clipboard.writeText(element.value);
-    document.getElementById('streamLink').innerHTML =
-      '<p>Link copied to clipboard!</p>';
-    document.getElementById(
-      'manifestUriLink'
-    ).innerHTML = `<p>Link manifest uri : ${stream.manifests.dash}</p>`;
+async function getStream(streamId) {
+    return await InliveStream.getStream(app,streamId)
 }
 
 // end stream
 async function endStream(slug) {
+  const status = document.getElementById('streamStatus')
+  
+  status.innerHTML =`<b>Stoping live stream...</b>`;
   await stream.end()
+  status.innerHTML =`<b>Live stream stop! Reload the page to go live again.</b>`
+  document.getElementById('btnEnd').style.display = 'none'
+  document.getElementById(
+    'manifestUriLink'
+  ).style.display = 'none'
 }
 
-
-document.addEventListener('DOMContentLoaded',()=>{
-  document.querySelector('#btnCreate').addEventListener('click',(e)=>createStream())
-  document.querySelector('#btnStart').addEventListener('click',(e)=>startStream())
-  document.querySelector('#btnEnd').addEventListener('click',(e)=>endStream())
-  document.querySelector('#btnGet').addEventListener('click',(e)=>getStream())
-  document.querySelector('#inputAPI').addEventListener('click',(e)=>inputAPIKey())
-})
+export {createStream, getStream, endStream, startStream,Stream, inputAPIKey}

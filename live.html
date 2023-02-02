@@ -10,16 +10,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Import the javascript file -->
-    <script src="/script.js" defer></script>
     <script
       defer
       src="https://ajax.googleapis.com/ajax/libs/shaka-player/3.3.2/shaka-player.compiled.js"
     ></script>
-    <script defer>
+    <script defer type="module">
+      import {getStream,Stream} from './script.mjs'
       // get the id parameter from the url link for the manifestUri
       let params = new URL(document.location).searchParams;
-      let streamId = params.get('id');
-      const manifestUri = `https://bifrost.inlive.app/streams/${streamId}/manifest.mpd`;
+      let streamId = parseInt(params.get('id'));
+      
 
       function initApp() {
         shaka.polyfill.installAll();
@@ -40,7 +40,18 @@
         player.addEventListener('error', onErrorEvent);
 
         try {
-          await player.load(manifestUri);
+          const stream = await getStream(streamId)
+
+          // check the manifest, if empty means stream is not started
+          if (stream.manifests.dash ===''){
+            stream.on(Stream.STARTED, async ()=>{
+              await player.load(stream.manifests.dash);
+            })
+          } else {
+            // not working on iOS, Dash is not supported in iOS. Use HLS instead in iOS
+            await player.load(stream.manifests.dash);
+          }
+
           console.log('The video has now been loaded!');
         } catch (e) {
           onError(e);
