@@ -115,6 +115,7 @@ async function initStream(localStream) {
     //styling
     document.getElementById('streamStatus').innerHTML =
       '<b>Streaming is ready!</b>';
+    document.getElementById('streamReady').style.display = "flex"
   } catch (error) {
     console.error(error);
     throw error;
