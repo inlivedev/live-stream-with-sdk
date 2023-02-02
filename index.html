@@ -10,12 +10,13 @@
 
     <!-- Import the javascript file -->
     <script defer type="module">
-      import {createStream,startStream,endStream,getStream} from './script.mjs'
+      import {createStream,startStream,endStream,getStream, inputAPIKey} from './script.mjs'
       window.addEventListener('DOMContentLoaded',()=>{
       document.querySelector('#btnCreate').addEventListener('click',(e)=>createStream())
       document.querySelector('#btnStart').addEventListener('click',(e)=>startStream())
       document.querySelector('#btnEnd').addEventListener('click',(e)=>endStream())
       document.querySelector('#btnGet').addEventListener('click',(e)=>getStream())
+      document.querySelector('#btnInputAPI').addEventListener('click',(e)=>inputAPIKey())
     })
     </script>
     <title>Create Live Stream</title>
@@ -52,7 +53,7 @@
 
       <!-- add own API Key -->
       <button
-        id="inputAPI"
+        id="btnInputAPI"
         type="button"
         aria-label="create-stream"
         class="cursor-pointer border-2 border-blue-600 rounded-lg text-blue-600 hover:bg-blue-600 hover:text-white px-4 py-2"
