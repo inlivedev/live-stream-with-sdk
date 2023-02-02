@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/inlivedev/live-stream-with-sdk#readme",
   "dependencies": {
-    "@inlivedev/inlive-js-sdk": "^0.3.0",
+    "@inlivedev/inlive-js-sdk": "^0.4.0",
     "http-server": "^14.1.1"
   }
 }

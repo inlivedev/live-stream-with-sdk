@@ -10,10 +10,7 @@ let mediaStream
 
 
 const app = InliveApp.init({
-  apiKey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjMzMjMyMzAzNDkyLCJqdGkiOiJjYjZhNzkwZi0xM2U4LTRhOTItYTAwOS1mYWU4OGY4ODg4YTYiLCJpYXQiOjE2NzQ3MDM0OTMsImlzcyI6ImlubGl2ZSIsImRiaWQiOjYsIlRva2VuVHlwZSI6ImFwaWtleSIsIlVzZXJJRCI6Mn0.7dxYeP4sukD-qbN6uN3rJSVtA4Nva2slOhRfiNoRyeg',
-  api:{
-    baseUrl:'https://dev-api.inlive.app'
-  }
+  apiKey:'<YOUR_API_KEY>'
  })
 
 
