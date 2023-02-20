@@ -36,13 +36,16 @@
         const video = document.getElementById('video');
         const player = new shaka.Player(video);
 
-        
+        let listener = new shaka.util.EventManager();
+
+        console.log(listener)
+        listener.listen(player, "stalldetected", (event) => { console.log("STALL"); });
 
         window.player = player;
 
-        player.addEventListener('error', onErrorEvent);
-        player.addEventListener("stalldetected", console.log("stall"))
-        player.addEventListener("loaded", console.log("loaded"))
+        // player.addEventListener('error', onErrorEvent);
+        // player.addEventListener("stalldetected", onStallEvent)
+        // player.addEventListener("loaded", console.log("loaded"))
 
         try {
           const stream = await getStream(streamId)
@@ -65,6 +68,11 @@
 
       function onErrorEvent(event) {
         onError(event.detail);
+      }
+
+      function onStallEvent(event){
+        console.log("STALL")
+        console.log(event);
       }
 
       function onError(error) {
