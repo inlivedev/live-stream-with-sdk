@@ -9,18 +9,17 @@ let mediaStream
 
 
 
-var app
+var app = InliveApp.init({
+      apiKey:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjMzMjMzMzY4Mjc4LCJqdGkiOiIwNzM5ZWQ3My1kMmJmLTQwMzMtODA1NC0wNzVkNjdlN2VjMTciLCJpYXQiOjE2NzU3NjgyNzgsImlzcyI6ImlubGl2ZSIsImRiaWQiOjYsIlRva2VuVHlwZSI6ImFwaWtleSIsIlVzZXJJRCI6NH0.q2rhmtPshbv61FcB_xuVyEo8FLOdKZIccxaM5zfbUEY",
+      api:{
+        baseUrl:'https://dev-api.inlive.app'
+      }
+    })
 
  // input own API Key
 async function inputAPIKey() {
   let a = document.getElementById('userAPIKey').value;
   if (a != '') {
-    app = InliveApp.init({
-      apiKey:a,
-      api:{
-        baseUrl:'https://dev-api.inlive.app'
-      }
-    })
     document.getElementById('createContainer').style.display = 'flex';
     document.getElementById('apiContainer').style.display = 'none';
   } else {
