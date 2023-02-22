@@ -12,7 +12,7 @@
     <!-- Import the javascript file -->
     <script
       defer
-      src="https://ajax.googleapis.com/ajax/libs/shaka-player/3.3.2/shaka-player.compiled.js"
+      src="https://ajax.googleapis.com/ajax/libs/shaka-player/4.3.4/shaka-player.compiled.js"
     ></script>
     <script defer type="module">
       import {getStream,Stream} from './script.mjs'
@@ -38,13 +38,13 @@
 
         let listener = new shaka.util.EventManager();
 
-        console.log(listener)
-        listener.listen(player, "stalldetected", (event) => { console.log("STALL"); });
+        // console.log("test",listener)
+        // listener.listen(player, "stalldetected", (event) => { console.log("STALL"); });
 
         window.player = player;
 
         // player.addEventListener('error', onErrorEvent);
-        // player.addEventListener("stalldetected", onStallEvent)
+        player.addEventListener("stalldetected", onStallEvent)
         // player.addEventListener("loaded", console.log("loaded"))
 
         try {
@@ -64,6 +64,11 @@
         } catch (e) {
           onError(e);
         }
+
+        let fake = new shaka.util.FakeEvent('stalldetected')
+
+        console.log("fakestall emitted", fake)
+        player.dispatchEvent(fake)
       }
 
       function onErrorEvent(event) {
